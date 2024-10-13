@@ -2,8 +2,8 @@
 
 # goals of sanitization
 # 1) identify primary key and flag duplicates
-# 2) flag missing data
-# 3) data type consistency
+# 2) flag nulls
+# 3) data type consistency ????
 # 4) sanitize special characters such as commas, quotes, etc.
 # 5) validate header names against meta data from db ????
 
@@ -42,9 +42,29 @@ def primary_key_sanitization(d_frame):
         print(dupli_check)
     else:
         print(f"\nNo duplicates found in specified column.")
-        # Next sanitization step
+    
+    return d_frame
 
+def identify_nulls(d_frame):
+    null_sum = d_frame.isnull().sum()
+    
+    print("Null values within each column:")
+    print(null_sum)
+    
+    tuple_nulls = d_frame[d_frame.isnull().any(axis=1)]
+    
+    if not tuple_nulls.empty:
+        print("\nRows containing null values:")
+        print(tuple_nulls)
+    else: 
+        print("\nNo rows containing null values.")
+    
+    return d_frame
 
-primary_key_sanitization(d_frame)
+# def special_character_cleanse(d_frame):
+    
+    
+d_frame = primary_key_sanitization(d_frame)
+d_frame = identify_nulls(d_frame)  
 
 # print(d_frame.head(10))
