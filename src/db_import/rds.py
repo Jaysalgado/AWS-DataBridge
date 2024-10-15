@@ -25,16 +25,15 @@ def import_to_rds(filepath, table_name):
     
     #read data from file
     with open(filepath, 'r') as file:
-        csv = csv.DictReader(file)
-        a_names = csv.fieldnames
+        csv_reader = csv.DictReader(file)
+        a_names = csv_reader.fieldnames
         rows = [list(row.values()) for row in csv]
-
 
     #database object (cursor) to interact with the database
     with conn.cursor() as cur:
         cur.execute(f"CREATE TABLE {table_name} ({a_names[0]} VARCHAR(255), {a_names[1]} INT, {a_names[2]} VARCHAR(255))")
         cur.executemany(f"INSERT INTO {table_name} VALUES (%s, %s, %s)", rows)
         conn.commit()
-        conn.close()
+    conn.close()
 
     print('Data has been imported to RDS')
