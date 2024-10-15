@@ -5,9 +5,7 @@
 
 # property graphs good fit for health-data because they model complex data
 
-# ask if primary key exist, and which column that is, if none exist, then create
-# arbritrary primary key for each row
-# provide choice to name it
+# identify nodes/vertex
 
 # each entity indicated by the primary key is a node, the rest of the tuples
 # indicate the "edges" or relationships 
@@ -20,25 +18,25 @@ import csv
 import pandas as pd
 import boto3
 
-data = "./data/diabetes_data.csv"
+data = "./data/diabetes_data.csv" # Path to data file
 
-d_frame = pd.read_csv(data)
+d_frame = pd.read_csv(data) # Setting data frame variable
 
-node_id = input("Which column would you like to use as a unique identifier for the nodes: ")
-property_id = input("What are the column names you would like to use as properties for your nodes: ")
-relationship_id = input("Enter the column names that represent relationships, no name is fine: ")
+node_id = input("Which column would you like to use as the unique identifier for the nodes? ") # Identifying node column
+property_id = input("What are the column names you would like to use as the properties for your nodes?  ") # Identifying property columns
+relationship_id = input("Enter the column names that represent relationships, no name is fine: ") # Identifying relationship columns between properties
 
-vertex_export = "/mnt/data/vertex.csv" # Temporary placeholder for csv files generated
-edges_export = "/mnt/data/edges.csv" # Temporary placeholder for csv files generated
+vertex_export = "/mnt/data/vertex.csv" # Temporary placeholder for csv files generated, will be pushed to Loader with Boto3
+edges_export = "/mnt/data/edges.csv" # Temporary placeholder for csv files generated, will be pushed to Loader with Boto3
 
 with open(vertex_export, 'w', newline='') as v, open(edges_export, 'w', newline='') as e:
-    vertex_mod = csv.writer(v)
-    edge_mod = csv.writer(e)
+    vertex_mod = csv.writer(v) # Sets write for vertex
+    edge_mod = csv.writer(e) # Sets write for edge
 
     edge_id = 1
 
-    vertex_mod.writerow(['~id', '~label'] + relationship_id)    
-    edge_mod.writerow(['~id', '~from', '~to', '~label'])
+    vertex_mod.writerow(['~id', '~label'] + relationship_id) # Headers for vertex, as indicated by AWS documentation
+    edge_mod.writerow(['~id', '~from', '~to', '~label']) # Headers for edge, as indicated by AWS documentation
 
     for index, row in d_frame.iterrows():
         node_id_trace = f'{row[node_id]}'
@@ -51,12 +49,12 @@ with open(vertex_export, 'w', newline='') as v, open(edges_export, 'w', newline=
                 edge_mod.writerow([f'e{edge_id}', node_id, related_node_id, f'relatedTo_{rel_col.strip()}'])
                 edge_id += 1
 
-print('Vertices and edges CSV files have been generated.')
+print('Vertices and edges CSV files have been written.')
 
 # The CSV's for Neptune have been generated. Now upload to DB with Boto3.
 # We need to use Amazon Neptune's Bulk Loader which will only accept files from Amazon S3
 
-client_container = boto3.client('s3')
+client_container = boto3.client('s3') 
 import_bucket = 'import-bucket'
 
 client_container.upload_file(vertex_export, import_bucket, 'vertex.csv')
