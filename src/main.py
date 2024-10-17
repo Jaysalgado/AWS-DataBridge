@@ -1,8 +1,10 @@
 from utils.convert_to import convert_to_csv
 from db_import.rds import import_to_rds
-from db_import.dynamodb import import_to_dynamo
+from db_import.dynamodb import import_to_dynamodb
+import os
 
 file = input('Enter the full name of the file (e.g. animals.txt):')
+file = os.path.join('/home/ec2-user/', file)
 file_type = file.split('.')[1]
 
 #sanitize data 
@@ -17,11 +19,9 @@ if file_type == 'txt':
 
 if db_choice == '1':
      import_to_rds(file, table_name)
-     print('Data has been imported to RDS')
 elif db_choice == '2':
     primary_key = input('Enter the primary key for the table: ')
-    import_to_dynamo(file, table_name, primary_key)
-    print('Data has been imported to DynamoDB') 
+    import_to_dynamodb(file, table_name, primary_key)
 elif db_choice == '3':
     print('Data has been imported to Neptune')
 elif db_choice == '4':
