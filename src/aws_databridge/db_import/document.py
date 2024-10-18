@@ -1,9 +1,12 @@
 import pymongo as pym
 import json
 
+altina = '/home/ec2-user/aws-databridge/global-bundle.pem'
+
+
 def import_to_documentdb(file):
     try:
-        client = pym.MongoClient(f'mongodb://marduk111:mirabel3@docdb-2024-10-18-14-40-50.cluster-cfsssmgsia9l.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&retryWrites=false&directConnection=true') 
+        client = pym.MongoClient(f'mongodb://marduk111:mirabel3@docdb-2024-10-18-14-40-50.cluster-cfsssmgsia9l.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile={altina}&retryWrites=false&directConnection=true') 
 
         db = client['database']
         collection = db['collection']
