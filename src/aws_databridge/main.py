@@ -1,14 +1,27 @@
 from aws_databridge.utils.convert_to import text_to_csv, json_to_csv, xml_to_csv
 from aws_databridge.db_import.rds import import_to_rds
 from aws_databridge.db_import.dynamodb import import_to_dynamodb
-from aws_databridge.db_import.document import import_to_documentdb
-from aws_databridge.db_import.neptune import import_to_neptune
+# from aws_databridge.db_import.document import import_to_documentdb
+# from aws_databridge.db_import.neptune import import_to_neptune
+import boto3
 import os
 
 def main():
-    file = input('Enter the full name of the file (e.g. animals.txt , include folder path if applicable-> folder/animals.txt):')
-    file = os.path.join('/home/ec2-user/', file)
-    file_type = file.split('.')[1]
+    import_path = input('Do you want to import data from your ec2 or s3? (ec2 = 1, s3 = 2): ')
+    if import_path == '1':
+        file = input('Enter the full name of the file (e.g. animals.txt , include folder path if applicable-> folder/animals.txt):')
+        file = os.path.join('/home/ec2-user/', file)
+        file_type = file.split('.')[1]
+    elif import_path == '2':
+        bucket = input('Enter the name of the bucket you would like to import data from: ')
+        file = input('Enter the full name of the file (e.g. animals.txt): ')
+        file_type = file.split('.')[1]
+        s3 = boto3.client('s3')
+        local_file_path = os.path.join('/home/ec2-user/', file) 
+        s3.download_file(bucket, file, local_file_path )
+        file = local_file_path
+        file_type = file.split('.')[1]
+
 
     db_choice = input('What database would you like to import this data to? (rds = 1, dynamo = 2, neptune = 3, documentDB = 4): ')
     table_name = input('Enter the name of the table you would like to import this data to: ')
@@ -44,7 +57,14 @@ def main():
         if stop == 0:
             db_choice = input('What database would you like to import this data to? (rds = 1, dynamo = 2, neptune = 3, documentDB = 4): ')
             table_name = input('Enter the name of the table you would like to import this data to: ')
-
+    # Delete the file after processing
+    try:
+        os.remove(file)
+        print(f"File '{file}' has been deleted from the EC2 instance.")
+    except FileNotFoundError:
+        print(f"File '{file}' not found.")
+    except Exception as e:
+        print(f"Error deleting file: {e}")
 
 if __name__ == '__main__':
     main()
