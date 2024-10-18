@@ -14,8 +14,23 @@ In your Ec2 instance run the following command
 ```bash
 pip3 install -i https://test.pypi.org/simple/ aws-databridge==0.1.4 --extra-index-url https://pypi.org/simple
 ```
-##Usage 
+## Usage 
 After the install you can run the following command to run the program 
 ```bash
 aws-databridge
 ```
+## Neccessary Enviroment Setup
+There are some neccessary set up requirements in order to use the application without errors for each database 
+### IAM Role
+Make sure your EC2 has the required IAM Role permissions attached to your EC2 instance for each of the databases you are attempting to import to
+### RDS env variables 
+To interact with your RDS instance you need to have the following credentials stored on your EC2 
+```bash
+export RDS_HOST="your-rds-endpoint.rds.amazonaws.com"
+export RDS_USER="your-username"
+export RDS_PASSWORD="your-password"
+export RDS_DB="your-database-name"
+export RDS_PORT="3306"
+```
+
+
