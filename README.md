@@ -20,10 +20,15 @@ After the install you can run the following command to run the program
 aws-databridge
 ```
 ## Neccessary Enviroment Setup
+
 There are some neccessary set up requirements in order to use the application without errors for each database 
+
 ### IAM Role
+
 Make sure your EC2 has the required IAM Role permissions attached to your EC2 instance for each of the databases you are attempting to import to
+
 ### RDS env variables 
+
 To interact with your RDS instance you need to have the following credentials stored on your EC2 
 ```bash
 export RDS_HOST="your-rds-endpoint.rds.amazonaws.com"
@@ -33,10 +38,30 @@ export RDS_DB="your-database-name"
 export RDS_PORT="3306"
 ```
 ### Data Location 
+
 Currently only Data located on the EC2 instance is supported, to transfer data from your machine to the EC2 run: 
 ```bash
 rsync -avz --exclude '.venv' -e "ssh -i ~/.ssh/<your pem name>.pem" <path to your code> ec2-user@<ec2 ip>:/home/ec2-user/
 ```
+## Compatibility
+
+This code has been tested and verified to work on the AWS Linux 2023 AMI EC2. Compatibility with other environments or operating systems is not guaranteed.
+
+## Contributing 
+
+If you would like to Contribute:
+1. Fork the repository
+2. Create a new branch (git checkout -b feature-branch).
+3. Make your changes and commit (git commit -m 'Add new feature').
+4. Push your changes (git push origin feature-branch).
+5. Open a pull request.
+
+Also feel free to open an issue if you spot any problems with the program!
+
+## License
+
+This project is licensed under the MIT License.
+
 
 
 
