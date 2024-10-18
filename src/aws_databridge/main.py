@@ -1,6 +1,8 @@
 from aws_databridge.utils.convert_to import text_to_csv, json_to_csv, xml_to_csv
 from aws_databridge.db_import.rds import import_to_rds
 from aws_databridge.db_import.dynamodb import import_to_dynamodb
+from aws_databridge.db_import.document import import_to_documentdb
+from aws_databridge.db_import.neptune import import_to_neptune
 import os
 
 def main():
@@ -36,6 +38,7 @@ def main():
         elif db_choice == '3':
             print('Data has been imported to Neptune')
         elif db_choice == '4':
+            import_to_documentdb(file)
             print('Data has been imported to DocumentDB')
         stop = int(input('Would you like to import this file to another database? (yes = 0, no = 1): '))
         if stop == 0:
