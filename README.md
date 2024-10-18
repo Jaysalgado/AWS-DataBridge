@@ -7,3 +7,15 @@ AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows u
 - Provides flexibility for users to import data into multiple databases from a single file.
 - Automatically creates tables and databases if they do not already exist.
 
+## Installation
+
+To install AWS DataBridge using pip3 (reccomended): 
+In your Ec2 instance run the following command
+```bash
+pip3 install -i https://test.pypi.org/simple/ aws-databridge==0.1.4 --extra-index-url https://pypi.org/simple
+```
+##Usage 
+After the install you can run the following command to run the program 
+```bash
+aws-databridge
+```
