@@ -40,7 +40,7 @@ export RDS_PORT="3306"
 ```
 ### Data Location 
 
-Currently only Data located on the EC2 instance is supported (S3 Support coming soon), to transfer data from your machine to the EC2 run: 
+Currently data can be imported from an S3 bucket or from the local EC2 instance. To transfer a file from your machine to the EC2 use the following command:
 ```bash
 rsync -avz --exclude '.venv' -e "ssh -i ~/.ssh/<your pem name>.pem" <path to your code> ec2-user@<ec2 ip>:/home/ec2-user/
 ```
