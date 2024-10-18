@@ -32,5 +32,11 @@ export RDS_PASSWORD="your-password"
 export RDS_DB="your-database-name"
 export RDS_PORT="3306"
 ```
+### Data Location 
+Currently only Data located on the EC2 instance is supported, to transfer data from your machine to the EC2 run: 
+```bash
+rsync -avz --exclude '.venv' -e "ssh -i ~/.ssh/<your pem name>.pem" <path to your code> ec2-user@<ec2 ip>:/home/ec2-user/
+```
+
 
 
