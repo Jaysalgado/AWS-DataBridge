@@ -3,6 +3,6 @@ venv/
 test_data.txt
 test_data.json
 test_data.csv
-/build
-/dist
+build/
+dist/
 src/aws_databridge.egg-info/
