@@ -1,7 +1,9 @@
 # AWS-DataBridge
+
 AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows users to import data from various file formats (XML, TXT, JSON, CSV) into multiple AWS databases including RDS, DynamoDB, Neptune, and DocumentDB. This tool automates the process of data conversion (converts all types to csv) and storage, ensuring flexibility and ease of use for different database needs.
 
 ## Features
+
 - Converts and imports XML, TXT, JSON, and CSV files into AWS databases.
 - Supports AWS RDS, DynamoDB, Neptune, and DocumentDB.
 - Provides flexibility for users to import data into multiple databases from a single file.
@@ -9,28 +11,34 @@ AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows u
 
 ## Installation
 
-### To install AWS DataBridge using pip: 
+### To install AWS DataBridge using pip:
 
 In your Ec2 instance run the following command
+
 ```bash
 pip3 install -i https://test.pypi.org/simple/ aws-databridge --extra-index-url https://pypi.org/simple
 ```
-## Usage 
-After the install you can run the following command to run the program 
+
+## Usage
+
+After the install you can run the following command to run the program
+
 ```bash
 aws-databridge
 ```
+
 ## Neccessary Environment Setup
 
-There are some neccessary set up requirements in order to use the application without errors for each database 
+There are some neccessary set up requirements in order to use the application without errors for each database
 
 ### IAM Role
 
 Make sure your EC2 has the required IAM Role permissions attached to your EC2 instance for each of the databases you are attempting to import to
 
-### RDS env variables 
+### RDS env variables
 
-To interact with your RDS instance you need to have the following credentials stored on your EC2 
+To interact with your RDS instance you need to have the following credentials stored on your EC2
+
 ```bash
 export RDS_HOST="your-rds-endpoint.rds.amazonaws.com"
 export RDS_USER="your-username"
@@ -38,19 +46,23 @@ export RDS_PASSWORD="your-password"
 export RDS_DB="your-database-name"
 export RDS_PORT="3306"
 ```
-### Data Location 
+
+### Data Location
 
 Currently data can be imported from an S3 bucket or from the local EC2 instance. To transfer a file from your machine to the EC2 use the following command:
+
 ```bash
 rsync -avz --exclude '.venv' -e "ssh -i ~/.ssh/<your pem name>.pem" <path to your code> ec2-user@<ec2 ip>:/home/ec2-user/
 ```
+
 ## Compatibility
 
 This code has been tested and verified to work on the AWS Linux 2023 AMI EC2. Compatibility with other environments or operating systems is not guaranteed.
 
-## Contributing 
+## Contributing
 
 If you would like to Contribute:
+
 1. Fork the repository
 2. Create a new branch (git checkout -b feature-branch).
 3. Make your changes and commit (git commit -m 'Add new feature').
@@ -62,7 +74,3 @@ Also feel free to open an issue if you spot any problems with the program!
 ## License
 
 This project is licensed under the MIT License.
-
-
-
-
