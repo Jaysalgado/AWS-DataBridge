@@ -2,6 +2,7 @@ from utils.convert_to import text_to_csv, json_to_csv, xml_to_csv
 from db_import.rds import import_to_rds
 from db_import.dynamodb import import_to_dynamodb
 from db_import.document import import_to_documentdb
+from db_import.neptune import import_to_neptune
 import os
 
 def main():
@@ -12,7 +13,7 @@ def main():
     db_choice = input('What database would you like to import this data to? (rds = 1, dynamo = 2, neptune = 3, documentDB = 4): ')
     table_name = input('Enter the name of the table you would like to import this data to: ')
 
-    csv_check = input('Would you like to convert the file to CSV? 1 = Yes, 2 = No')
+    csv_check = input('Would you like to convert the file to CSV? (1 = Yes, 2 = No): ')
     #convert supported non csv types to csv
 
     if csv_check == '1':
@@ -40,6 +41,7 @@ def main():
             primary_key = input('Enter the primary key for the table: ')
             import_to_dynamodb(file, table_name, primary_key)
         elif db_choice == '3':
+            import_to_neptune(file)
             print('Data has been imported to Neptune')
         elif db_choice == '4':
             import_to_documentdb(file)
