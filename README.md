@@ -72,6 +72,26 @@ Currently data can be imported from an S3 bucket or from the local EC2 instance.
 ```bash
 rsync -avz --exclude '.venv' -e "ssh -i ~/.ssh/<your pem name>.pem" <path to your code> ec2-user@<ec2 ip>:/home/ec2-user/
 ```
+## Example Workflow
+
+To demonstrate how to use AWS-DataBridge, here’s an example of importing a JSON file into an RDS instance:
+
+### Step 1: Prepare Your Data File
+
+Ensure your data file (e.g., `data.json`) is either stored locally on your EC2 instance or in an S3 bucket. If it's not on your EC2 instance, you can transfer it using the command listed above in the Data Location section.
+
+### Step 2: Run the Application
+
+Use the command provided above to run the program.
+
+### Step 3: Follow the Prompts
+
+The CLI will guide you through the steps, including specifying the table name and confirming the import. **Be cautious of typos**, as they may cause errors in the import process. AWS-DataBridge will convert the JSON file to the necessary format (if needed) and import the data to your RDS instance.
+
+> **Note**: 
+> - When importing into **RDS**, **DynamoDB**, and **DocumentDB**, the file will be converted into a CSV format.
+> - For **Neptune**, the file will be converted to JSON if it isn't already in that format.
+
 
 ## Compatibility
 
