@@ -1,8 +1,8 @@
 from aws_databridge.utils.convert_to import text_to_csv, json_to_csv, xml_to_csv
 from aws_databridge.db_import.rds import import_to_rds
 from aws_databridge.db_import.dynamodb import import_to_dynamodb
-# from aws_databridge.db_import.document import import_to_documentdb
-# from aws_databridge.db_import.neptune import import_to_neptune
+from aws_databridge.db_import.document import import_to_documentdb
+from aws_databridge.db_import.neptune import import_to_neptune
 import boto3
 import os
 
