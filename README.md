@@ -16,7 +16,7 @@ AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows u
 In your Ec2 instance run the following command
 
 ```bash
-pip3 install -i https://test.pypi.org/simple/ aws-databridge --extra-index-url https://pypi.org/simple
+pip install aws-databridge
 ```
 
 ## Usage
