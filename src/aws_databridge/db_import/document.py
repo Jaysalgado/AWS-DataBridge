@@ -1,11 +1,19 @@
 import pymongo as pym
 import json
+import os
 
 #add a possible check for dictionaries
 
+MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+MONGO_USERNAME = os.getenv('MONGO_USERNAME', 'default-user')
+MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', 'default_password')
+MONGO_TLS = os.getenv('MONGO_TLS', 'global-bundle.pem')
+
+CONNECT_URL = f'mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_URL}?tls=true&tlsCAFile={MONGO_TLS}&retryWrites=false'
+
 def import_to_documentdb(file):
     try:
-        client = pym.MongoClient('mongodb://marduk111:mirabel3@docdb-2024-10-18-14-40-50.cfsssmgsia9l.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&retryWrites=false') 
+        client = pym.MongoClient(CONNECT_URL) 
 
         db = client['database']
         collection = db['collection']

@@ -3,8 +3,13 @@ import pandas as pd
 import boto3
 import requests
 import json
+import os
 
-nep_endpoint = 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com'
+NEP_ENDPOINT = os.getenv('NEP_ENDPOINT', 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com')
+IAM_ROLE_ARN = os.getenv('IAM_ROLE_ARN', 'arn:aws:iam::123456789012:role/NeptuneAccessDev')
+IMPORT_BUCKET = os.getenv('IMPORT_BUCKET', 'default-bucket-name')
+# 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com'
+# 'abkprometheusmk2'
 
 def import_to_neptune(file): 
     try:
@@ -60,25 +65,24 @@ def import_to_neptune(file):
     print('Vertices and edges CSV files have been written.')
 
     client_container = boto3.client('s3') 
-    import_bucket = 'abkprometheusmk2'
 
     try: 
-        client_container.upload_file(vertex_export, import_bucket, 'vertex.csv')
-        print(f"{vertex_export} uploaded to S3 bucket: {import_bucket}")
-        client_container.upload_file(edges_export, import_bucket, 'edges.csv')
-        print(f"{edges_export} uploaded to S3 bucket: {import_bucket}")
+        client_container.upload_file(vertex_export, IMPORT_BUCKET, 'vertex.csv')
+        print(f"{vertex_export} uploaded to S3 bucket: {IMPORT_BUCKET}")
+        client_container.upload_file(edges_export, IMPORT_BUCKET, 'edges.csv')
+        print(f"{edges_export} uploaded to S3 bucket: {IMPORT_BUCKET}")
     except boto3.exceptions.S3UploadFailedError as aws_err:
         print(f"Upload error: {aws_err}")
     except boto3.exceptions.NoCredentialsError as auth_err:
         print(f"Credentials error: {auth_err}")
 
-    for s3_uri in [f's3://{import_bucket}/vertex.csv', f's3://{import_bucket}/edges.csv']:
-        nep_url = f"https://{nep_endpoint}:8182/loader"
+    for s3_uri in [f's3://{IMPORT_BUCKET}/vertex.csv', f's3://{IMPORT_BUCKET}/edges.csv']:
+        nep_url = f"https://{NEP_ENDPOINT}:8182/loader"
 
         payload_delivery = {
             "source": s3_uri,
             "format": "csv",
-            "iamRoleArn": "arn:aws:iam::985539794633:role/EC2_Access_4",
+            "iamRoleArn": IAM_ROLE_ARN,
             "region": "us-east-1",
             "failOnError": "TRUE",
         }
