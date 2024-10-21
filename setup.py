@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="aws-databridge",
-    version="0.1.7",
+    version="0.1.9",
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=True,
