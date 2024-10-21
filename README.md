@@ -1,6 +1,6 @@
 # AWS-DataBridge
 
-AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows users to import data from various file formats (XML, TXT, JSON, CSV) into multiple AWS databases including RDS, DynamoDB, Neptune, and DocumentDB. This tool automates the process of data conversion (converts all types to csv) and storage, ensuring flexibility and ease of use for different database needs.
+AWS-DataBridge is a CLI application designed for AWS EC2 instances that allows users to import data from various file formats (XML, TXT, JSON, CSV) into multiple AWS databases including RDS, DynamoDB, Neptune, and DocumentDB. This tool automates the process of data conversion and storage, ensuring flexibility and ease of use for different database needs.
 
 ## Features
 
@@ -45,6 +45,24 @@ export RDS_USER="your-username"
 export RDS_PASSWORD="your-password"
 export RDS_DB="your-database-name"
 export RDS_PORT="3306"
+```
+### DocumentDB env variables 
+
+To import into DocmunetDB you need to have the following credentials stored on your EC2 
+```bash
+MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+MONGO_USERNAME = os.getenv('MONGO_USERNAME', 'default-user')
+MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', 'default_password')
+MONGO_TLS = os.getenv('MONGO_TLS', 'global-bundle.pem')
+```
+### Neptune env variables 
+
+To import into Neptune you need to have the following credentials stored on your EC2 
+```bash
+NEP_ENDPOINT = os.getenv('NEP_ENDPOINT', 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com')
+IAM_ROLE_ARN = os.getenv('IAM_ROLE_ARN', 'arn:aws:iam::123456789012:role/NeptuneAccessDev')
+IMPORT_BUCKET = os.getenv('IMPORT_BUCKET', 'default-bucket-name')
+
 ```
 
 ### Data Location
