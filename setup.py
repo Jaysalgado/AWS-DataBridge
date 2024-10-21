@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="aws-databridge",
-    version="0.1.9",
+    version="2.0.2",
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=True,
@@ -17,7 +17,7 @@ setup(
            "aws-databridge=aws_databridge.main:main",
         ]
     },
-    author="Jay, Abahn, Matt",
+    author="Jay, Aban, Matt",
     description="An AWS EC2 CLI application that supports XML, TXT, JSON, and CSV imports to various AWS databases.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
