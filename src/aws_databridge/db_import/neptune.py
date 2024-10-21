@@ -8,8 +8,6 @@ import os
 NEP_ENDPOINT = os.getenv('NEP_ENDPOINT', 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com')
 IAM_ROLE_ARN = os.getenv('IAM_ROLE_ARN', 'arn:aws:iam::123456789012:role/NeptuneAccessDev')
 IMPORT_BUCKET = os.getenv('IMPORT_BUCKET', 'default-bucket-name')
-# 'db-neptune-1.cluster-cfsssmgsia9l.us-east-1.neptune.amazonaws.com'
-# 'abkprometheusmk2'
 
 def import_to_neptune(file): 
     try:

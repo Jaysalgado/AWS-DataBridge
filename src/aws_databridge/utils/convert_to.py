@@ -21,10 +21,13 @@ def text_to_csv(filepath):
     a_names = lines[0].split() #attribute names
     rows = [line.split() for line in lines[1:]] #tuple values
 
-    with open(filepath.replace('txt', 'csv'), 'w', newline='') as file:
+    new_filepath = filepath.replace('txt', 'csv')
+    with open(new_filepath, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(a_names)
         writer.writerows(rows)
+    
+    return new_filepath
 
 def json_to_csv(filepath):
     #test
@@ -37,9 +40,11 @@ def json_to_csv(filepath):
     # with open("test_data.json", "w") as file:
     #     json.dump(test_json, file, indent=4)
     #     filepath = "test_data.json"
-
     data = pd.read_json(filepath)
-    data.to_csv(filepath.replace('json', 'csv'), index=False)
+    new_filepath = filepath.replace('json', 'csv')
+    data.to_csv(new_filepath, index=False)
+
+    return new_filepath
 
 def xml_to_csv(filepath):
 
@@ -73,9 +78,17 @@ def xml_to_csv(filepath):
     #     file.write(test_xml)
     #     filepath = "test_data.xml"
 
-    data = pd.read_xml(filepath)
-    data.to_csv(filepath.replace('xml', 'csv'), index=False)
+   data = pd.read_xml(filepath)
+   new_filepath = filepath.replace('xml', 'csv')
+   data.to_csv(new_filepath, index=False)
+    
+   return new_filepath
 
-
+def csv_to_json(filepath):
+    data = pd.read_csv(filepath)
+    new_filepath = filepath.replace('csv', 'json')
+    data.to_json(new_filepath, orient='records', indent=4)
+    
+    return new_filepath
 
 

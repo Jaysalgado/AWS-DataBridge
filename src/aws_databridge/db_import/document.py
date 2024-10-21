@@ -2,7 +2,7 @@ import pymongo as pym
 import json
 import os
 
-#add a possible check for dictionaries
+# add a possible check for dictionaries
 
 MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
 MONGO_USERNAME = os.getenv('MONGO_USERNAME', 'default-user')
