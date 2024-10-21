@@ -2,3 +2,5 @@ boto3
 pandas
 pymysql
 lxml
+requests
+pymongo

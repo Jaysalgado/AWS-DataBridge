@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="aws-databridge",
-    version="2.0.2",
+    version="2.0.3",
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=True,
@@ -10,7 +10,9 @@ setup(
        "boto3>=1.20.0",  
         "pandas",
         "pymysql",
-        "lxml"
+        "lxml",
+        "requests",
+        "pymongo"
     ],
     entry_points={
         "console_scripts": [
